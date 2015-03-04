@@ -1,0 +1,50 @@
+package story;
+
+// How to run:
+// in directory with this file execute:
+// protoc addressbook.proto --java_out=../java/
+
+option java_package = "com.hardrockdsl.model.protobuf";
+option java_outer_classname = "Story";
+
+// typical request for item page
+// 1. CatalogItem item = Catalog.getItem(itemId)
+// 2. List<ID> commentIds = Content.getComments(itemId)
+// 3.1. List<Profile> profiles = User.getProfiles(listOf(authorId from commentId));
+// 3.2. List<Content> contents = Content.getContents(listOf(itemId).concat(commentIds));
+
+
+//
+// Catalog
+// ==============================================================================
+//
+
+message CatalogItem {
+  required int32    id = 1;
+  required string   lang = 2;
+  required string   title = 3;
+
+  enum Type {
+    BOOK = 10;
+    MOVIE = 11;
+  }
+
+  required Type     type = 4;
+}
+
+//
+// Content
+// ==============================================================================
+//
+
+//
+// Personalization
+// ==============================================================================
+//
+
+//
+// User
+// ==============================================================================
+//
+
+
