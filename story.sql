@@ -5,6 +5,19 @@
 -- Catalog
 --
 
+-- Person info (person can be an external author or person on the website)
+CREATE TABLE person (
+  id        INTEGER PRIMARY KEY,
+  disp_name VARCHAR(256) NOT NULL
+);
+
+-- Genre codes
+CREATE TABLE genre (
+  id        INTEGER PRIMARY KEY,
+  code      CHAR(32) NOT NULL,
+  CONSTRAINT uq_genre_code UNIQUE (code)
+);
+
 CREATE TABLE lang_code (
   id            INTEGER PRIMARY KEY,
   code          CHAR(8) NOT NULL,
@@ -17,6 +30,21 @@ CREATE TABLE cat_item (
   lang_id       INTEGER NOT NULL,
   cat_type      INTEGER NOT NULL,
   CONSTRAINT fk_cat_item_lang_id FOREIGN KEY (lang_id) REFERENCES lang_code (id)
+);
+
+CREATE TABLE cat_item_person_rel (
+  id            INTEGER NOT NULL,
+  item_id       INTEGER NOT NULL,
+  individ_id    INTEGER NOT NULL, -- PERSON or USER id
+
+  -- EnumFlags
+  --    AUTHOR: 0x1
+  --    CHARACTER: 0x2
+  --    ILLUSTRATOR: 0x4
+  -- and
+  --    PERSON: 0x10000000
+  --    USER:   0x20000000
+  rel_type      INTEGER NOT NULL
 );
 
 CREATE TABLE ext_service (
